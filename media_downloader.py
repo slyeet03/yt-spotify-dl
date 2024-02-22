@@ -1,19 +1,26 @@
+# It won't work with age restriced videos
+
 from pytube import YouTube
 import os
 import re
 from youtubesearchpython import VideosSearch
+from alive_progress import alive_bar
+import time 
 
-# It won't work with age restriced videos 
+# defining the time for the progress bar
+time_for_progress_bar = 1
 
 # Youtube Video download
 def download_video(url, output_path):
     try:
-        # Create a YouTube object
-        yt = YouTube(url)
-        # Get the highest resolution stream
-        stream = yt.streams.get_highest_resolution()
-        # Download the video
-        stream.download(output_path)
+        with alive_bar(time_for_progress_bar) as bar:
+            # Create a YouTube object
+            yt = YouTube(url)
+            # Get the highest resolution stream
+            stream = yt.streams.get_highest_resolution()
+            # Download the video
+            stream.download(output_path)
+            bar()
         print("Video downloaded successfully!")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
@@ -21,15 +28,17 @@ def download_video(url, output_path):
 # Youtube Audio download
 def download_audio(url, output_path):
     try:
-        # Create a YouTube object
-        yt = YouTube(url)
-        # Get the audio stream
-        audio_stream = yt.streams.filter(only_audio=True).first()
-        # Download the audio stream
-        audio_file = audio_stream.download(output_path)
-        # Rename the audio file to have an mp3 extension
-        audio_path = f"{output_path}/{yt.title}.mp3"
-        os.rename(audio_file, audio_path)
+        with alive_bar(time_for_progress_bar) as bar:
+            # Create a YouTube object
+            yt = YouTube(url)
+            # Get the audio stream
+            audio_stream = yt.streams.filter(only_audio=True).first()
+            # Download the audio stream
+            audio_file = audio_stream.download(output_path)
+            # Rename the audio file to have an mp3 extension
+            audio_path = f"{output_path}/{yt.title}.mp3"
+            os.rename(audio_file, audio_path)
+            bar()
         print("Audio downloaded successfully!")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
@@ -54,7 +63,6 @@ def spotify_to_youtube(spotify_link):
         print("Invalid Spotify link format.")
 
 if __name__ == "__main__":
-
     # Output path where the video will be saved
     output_path_video = "yt vids"
     output_path_audio = "yt audios"

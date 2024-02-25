@@ -18,8 +18,8 @@ def menu():
 
 def file_type_choice(url):
 	# Output path where the video will be saved
-	output_path_video = "C:/Users/chitr/Desktop/yt vids"
-	output_path_audio = "C:/Users/chitr/Desktop/yt audio"
+	output_path_video = "" # put your desired output direcotry between the quotes
+	output_path_audio = "" # put your desired output direcotry between the quotes
 	file_type = input("1)mp3\n2)mp4\n->")
 
 	if file_type == '1':

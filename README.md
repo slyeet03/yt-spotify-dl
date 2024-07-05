@@ -1,4 +1,4 @@
-# Media Downloader CLI
+# YT-Spotify-dl
 
 A CLI agent for downloading video or audio files from Youtube or Spotify using the link.
 
